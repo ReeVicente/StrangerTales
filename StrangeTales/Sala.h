@@ -25,6 +25,8 @@ public:
 
 	void Examinar(std::string nome);
 
+	bool Checar(std::string nome);
+
 	Sala *Esquerda();
 
 	Sala *Direita();

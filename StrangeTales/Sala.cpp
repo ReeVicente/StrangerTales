@@ -27,9 +27,26 @@ void Sala::Examinar(std::string nome) {
 	}
 	else if (this->objetos[3].getNome().compare(nome) == 0) {
 		this->objetos[3].Interagir();
+	} else {
+		std::cout << "Item nao encontrado" << std::endl;
 	}
 }
 
+bool Sala::Checar(std::string nome) {
+	if (this->objetos[0].getNome().compare(nome) == 0) {
+		return true;
+	}
+	else if (this->objetos[1].getNome().compare(nome) == 0) {
+		return true;
+	}
+	else if (this->objetos[2].getNome().compare(nome) == 0) {
+		return true;
+	}
+	else if (this->objetos[3].getNome().compare(nome) == 0) {
+		return true;
+	}
+	return false;
+}
 void Sala::Mensagem() {
 	std::cout << this->mensagem << std::endl;
 	std::cout << "========= Esses são os objetos da sala ============" << std::endl;

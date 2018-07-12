@@ -12,19 +12,6 @@
 
 using namespace std;
 
-void visita(Sala* A) {
-	A->Mensagem();
-}
-
-void emOrdem(Sala* A) {
-	if (A != NULL) {
-		emOrdem(A->Esquerda());
-		visita(A);
-		emOrdem(A->Direita());
-	}
-}
-
-
 int main() {
 
 	setlocale(LC_ALL, "Portuguese");//Definido localidade
@@ -37,7 +24,7 @@ int main() {
 
 	Objeto objetoSalaDir[4]{ { "Bilhete", "Às vezes, a vida prega as mesmas peças em lugares diferentes" },
 							 { "Abajur", "Ainda com medo de escuro, huh? Acho que seu maior problema não é esse" },
-							 { "Relogio", "O relógio está parado, mas parece fácil de abrir. Ao jogá-lo no chão de raiva, ele se desmancha e aparece uma pequena chave com um bilhete ''As vezes as coisas precisam ser resolvidas na base do ódio mesmo'' " },//Objeto chave para ir para o próximo nivel
+							 { "Relogio de pulso", "O relógio está parado, mas parece fácil de abrir. Ao jogá-lo no chão de raiva, ele se desmancha e aparece uma pequena chave com um bilhete ''As vezes as coisas precisam ser resolvidas na base do ódio mesmo'' " },//Objeto chave para ir para o próximo nivel
 							 { "Fantasia de Piloto de F1", "Pra você se sentir um campeão! Parabéns, eu acho." }
 	};//Colocando os objetos da sala a direita da raiz
 
@@ -76,7 +63,7 @@ int main() {
 	Sala *salaFilhoDirEsqDir = new Sala("Você está no filho a direita", objetoSalaDirEsqDir);
 	Sala *salaFilhoDirEsq = new Sala("Você está no filho a esquerda", "Cartao de memoria", salaFilhoDirEsqEsq, salaFilhoDirEsqDir, objetoSalaDirEsq);
 	Sala *salaFilhoDirDir = new Sala("Você está no filho a direita", objetoSalaDirDir);
-	Sala *salaFilhoDir = new Sala("Você está no filho a direita", "Relogio", salaFilhoDirEsq, salaFilhoDirDir, objetoSalaDir);
+	Sala *salaFilhoDir = new Sala("Você está no filho a direita", "Relogio de pulso", salaFilhoDirEsq, salaFilhoDirDir, objetoSalaDir);
 	Sala *salaFilhoEsq = new Sala("Você está no filho a esquerda", objetoSalaEsq);
 	Sala *salaRaiz = new Sala("Você está na sala incial", "Boina", salaFilhoEsq, salaFilhoDir, objetoSalaRaiz);
 
@@ -103,6 +90,7 @@ int main() {
 		currentSala->Examinar(exa);
 
 		if (currentSala->eCerta() && exa.compare(currentSala->correto()) == 0) {
+			itensAnalisados = 0;
 			currentLevel++;
 			cout << "Voce desbloqueou outro nivel. Para ir ao filho da esquerda, digite 0. Para ir a direita, digite qualquer numero" << endl << "Lembre-se: sua escolha nao tem volta :)" << endl;
 			cin >> dest;
@@ -113,7 +101,7 @@ int main() {
 				currentSala = currentSala->Direita();
 			}
 		}
-		else if(!currentSala->eCerta()){
+		else if(!currentSala->eCerta() && currentSala->Checar(exa) && currentLevel != 0){
 			itensAnalisados++;
 		}
 
@@ -123,23 +111,9 @@ int main() {
 			itensAnalisados = 0;
 		}
 
-		system("PAUSE");
+		cout << "\nPressione alguma tecla para continuar..." << endl;
+		getchar();
 		system("CLS");
-
-		while (currentLevel == 1 && exa != "Boina"){
-			salaRaiz->Mensagem();
-			std::cout << "Digite item que voce quer examinar: " << endl;
-			std::cin >> exa;
-			cout << endl;
-			salaRaiz->Examinar(exa);
-		
-			if (exa == "Boina") {
-				currentLevel = 2;
-			}
-
-			system("PAUSE");
-			system("CLS");
-		}
 
 	}
 	cout << "Parabens voce achou um bau e ganhou" << endl;
