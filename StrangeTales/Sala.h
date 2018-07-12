@@ -11,12 +11,13 @@ private:
 	Sala *salaDir;
 	Sala *salaPai;
 	Objeto *objetos;
+	std::string objCorreto;
+	bool certa = false;
 	std::string mensagem;
 
 public:
-	Sala(std::string mensagem, Sala *salaEsq, Sala *salaDir, Sala *salaPai, Objeto *objetos);
 
-	Sala(std::string mensagem, Sala *salaEsq, Sala *salaDir, Objeto *objetos);
+	Sala(std::string mensagem, std::string objCorreto, Sala *salaEsq, Sala *salaDir, Objeto *objetos);
 
 	Sala(std::string mensagem, Objeto *objetos);
 
@@ -31,5 +32,10 @@ public:
 	Sala *Voltar();
 
 	bool estaAberta();
+
+	bool eCerta();
+
+	std::string correto();
+
 	~Sala();
 };

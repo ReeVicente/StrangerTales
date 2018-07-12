@@ -1,26 +1,19 @@
 #include "stdafx.h"
 #include "Sala.h"
 
-Sala::Sala(std::string mensagem, Sala *salaEsq, Sala *salaDir, Sala *salaPai, Objeto *objetos) {
-	this->mensagem = mensagem;
-	this->salaEsq = salaEsq;
-	this->salaDir = salaDir;
-	this->salaPai = salaPai;
-	this->objetos = objetos;
-}
-
-Sala::Sala(std::string mensagem, Sala *salaEsq, Sala *salaDir, Objeto *objetos) {
+Sala::Sala(std::string mensagem, std::string objCorreto, Sala *salaEsq, Sala *salaDir, Objeto *objetos) {
 	this->mensagem = mensagem;
 	this->salaEsq = salaEsq;
 	this->salaDir = salaDir;
 	this->objetos = objetos;
+	this->objCorreto = objCorreto;
+	this->certa = true;
 }
 
 Sala::Sala(std::string mensagem, Objeto *objetos) {
 	this->mensagem = mensagem;
 	this->objetos = objetos;
 }
-
 
 void Sala::Examinar(std::string nome) {
 	if (this->objetos[0].getNome().compare(nome) == 0){
@@ -34,9 +27,6 @@ void Sala::Examinar(std::string nome) {
 	}
 	else if (this->objetos[3].getNome().compare(nome) == 0) {
 		this->objetos[3].Interagir();
-	}
-	else if (this->objetos[4].getNome().compare(nome)) {
-		this->objetos[4].Interagir();
 	}
 }
 
@@ -63,6 +53,14 @@ Sala *Sala::Voltar() {
 
 bool Sala::estaAberta() {
 	return aberta;
+}
+
+bool Sala::eCerta() {
+	return certa;
+}
+
+std::string Sala::correto() {
+	return objCorreto;
 }
 
 Sala::~Sala() {
